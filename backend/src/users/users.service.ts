@@ -8,11 +8,13 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) { }
 
   async findAll() {
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       include: {
         organization: true,
       },
     });
+
+    return users.map(({ passwordHash, ...user }) => user);
   }
 
   async create(createUserDto: CreateUserDto) {
