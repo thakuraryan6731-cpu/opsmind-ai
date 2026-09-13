@@ -5,8 +5,12 @@ import { PrismaService } from '../prisma/prisma.service';
 export class OrganizationsService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async findAll() {
-    return this.prisma.organization.findMany();
+  async findAll(organizationId: string) {
+    return this.prisma.organization.findMany({
+      where: {
+        id: organizationId,
+      },
+    });
   }
 
   async create(name: string) {
