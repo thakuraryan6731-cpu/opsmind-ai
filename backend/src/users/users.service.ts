@@ -17,7 +17,10 @@ export class UsersService {
     return users.map(({ passwordHash, ...user }) => user);
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(
+    createUserDto: CreateUserDto,
+    organizationId: string,
+  ) {
     const passwordHash = await bcrypt.hash(createUserDto.password, 12);
 
     const user = await this.prisma.user.create({
@@ -25,7 +28,7 @@ export class UsersService {
         email: createUserDto.email,
         name: createUserDto.name,
         passwordHash,
-        organizationId: createUserDto.organizationId,
+        organizationId,
       },
     });
 

@@ -26,10 +26,17 @@ export class UsersController {
     return this.usersService.findOne(id, user.organizationId);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-
+  create(
+    @Body() createUserDto: CreateUserDto,
+    @CurrentUser() user: any,
+  ) {
+    return this.usersService.create(
+      createUserDto,
+      user.organizationId,
+    );
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
