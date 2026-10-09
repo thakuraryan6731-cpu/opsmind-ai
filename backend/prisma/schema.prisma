@@ -40,3 +40,26 @@ enum UserRole {
   ANALYST
   VIEWER
 }
+
+
+model Event {
+  id             String   @id @default(uuid())
+  type           String
+  source         String
+  severity       EventSeverity @default(INFO)
+  message        String
+  metadata       Json?
+  organizationId String
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, createdAt])
+  @@index([organizationId, type])
+}
+
+enum EventSeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
