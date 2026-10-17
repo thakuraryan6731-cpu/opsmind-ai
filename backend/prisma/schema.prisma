@@ -71,10 +71,12 @@ enum IncidentStatus {
   RESOLVED
 }
 
+
 model Incident {
   id              String         @id @default(uuid())
   title           String
   description     String
+  fingerprint     String
   severity        EventSeverity  @default(HIGH)
   status          IncidentStatus @default(OPEN)
   organizationId  String
@@ -86,4 +88,6 @@ model Incident {
 
   @@index([organizationId, status])
   @@index([organizationId, createdAt])
+  @@index([organizationId, fingerprint])
 }
+
