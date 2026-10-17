@@ -14,6 +14,7 @@ import { UpdateIncidentStatusDto } from './dto/update-incident-status.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '../generated/prisma/client';
+import { Post } from '@nestjs/common';
 
 @Controller('incidents')
 @UseGuards(JwtAuthGuard)
@@ -49,6 +50,17 @@ export class IncidentsController {
       id,
       user.organizationId,
       dto,
+    );
+  }
+
+  @Post(':id/investigate')
+  investigate(
+    @Param('id') id: string,
+    @CurrentUser() user: any,
+  ) {
+    return this.incidentsService.investigate(
+      id,
+      user.organizationId,
     );
   }
 }
