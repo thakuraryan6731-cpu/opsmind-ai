@@ -6,10 +6,12 @@ import { OrganizationsModule } from './organizations/organizations.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
+import { DetectionModule } from './detection/detection.module';
+import { IncidentsModule } from './incidents/incidents.module';
 
 @Module({
-  imports: [PrismaModule, OrganizationsModule, UsersModule, AuthModule, EventsModule],
+  imports: [PrismaModule, OrganizationsModule, UsersModule, AuthModule, EventsModule, DetectionModule, IncidentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
